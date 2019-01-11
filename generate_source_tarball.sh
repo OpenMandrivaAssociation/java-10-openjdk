@@ -26,6 +26,8 @@
 # level folder, name is created, based on parameter
 #
 
+OURDIR="$(dirname $(realpath $0))"
+
 if [ ! "x$PR2126" = "x" ] ; then
   if [ ! -f "$PR2126" ] ; then
     echo "You have specified PR2126 as $PR2126 but it does not exists. exiting"
@@ -113,6 +115,7 @@ else
 fi
 pushd "${FILE_NAME_ROOT}"
     if [ -d openjdk/src ]; then 
+        sh $OURDIR/remove-intree-libraries.sh
         pushd openjdk
             echo "Removing EC source code we don't build"
             CRYPTO_PATH=src/jdk.crypto.ec/share/native/libsunec/impl
