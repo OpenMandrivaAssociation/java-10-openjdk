@@ -923,6 +923,8 @@ BuildRequires: pkgconfig(xtst)
 # Requirements for setting up the nss.cfg
 BuildRequires: pkgconfig(nss)
 BuildRequires: pkgconfig(nss-softokn)
+# For freebl
+BuildRequires: nss-static-devel
 BuildRequires: pkgconfig
 BuildRequires: x11-proto-devel
 BuildRequires: zip
