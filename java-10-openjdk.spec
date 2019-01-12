@@ -1077,7 +1077,6 @@ The java-%{origin}-src-slowdebug sub-package contains the complete %{origin_nice
 %package javadoc
 Summary: %{origin_nice} %{majorver} API documentation
 Group:   Documentation
-Requires: javapackages-filesystem
 
 %{java_javadoc_rpo %{nil}}
 
@@ -1089,7 +1088,6 @@ The %{origin_nice} %{majorver} API documentation.
 %package javadoc-zip
 Summary: %{origin_nice} %{majorver} API documentation compressed in single archive
 Group:   Documentation
-Requires: javapackages-filesystem
 
 %{java_javadoc_rpo %{nil}}
 
@@ -1101,7 +1099,6 @@ The %{origin_nice} %{majorver} API documentation compressed in single archive.
 %package javadoc-slowdebug
 Summary: %{origin_nice} %{majorver} API documentation %{for_debug}
 Group:   Documentation
-Requires: javapackages-filesystem
 
 %{java_javadoc_rpo -- %{debug_suffix_unquoted}}
 
@@ -1113,7 +1110,6 @@ The %{origin_nice} %{majorver} API documentation %{for_debug}.
 %package javadoc-zip-slowdebug
 Summary: %{origin_nice} %{majorver} API documentation compressed in single archive %{for_debug}
 Group:   Documentation
-Requires: javapackages-filesystem
 
 %{java_javadoc_rpo -- %{debug_suffix_unquoted}}
 
