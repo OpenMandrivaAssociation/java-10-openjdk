@@ -1257,7 +1257,7 @@ top_dir_abs_path=$(pwd)/%{top_level_dir_name}
 mkdir -p %{buildoutputdir -- $suffix}
 pushd %{buildoutputdir -- $suffix}
 
-bash ../configure \
+if ! bash ../configure \
 %ifnarch %{jit_arches}
     --with-jvm-variants=zero \
 %endif
@@ -1283,7 +1283,12 @@ bash ../configure \
     --with-extra-ldflags="%{ourldflags}" \
     --with-num-cores="$NUM_PROC" \
     --disable-javac-server \
-    --disable-warnings-as-errors
+    --disable-warnings-as-errors \
+	; then
+	echo 'configure failed -- log:'
+	cat config.log
+	exit 1
+fi
 
 make \
     JOBS=$(getconf _NPROCESSORS_ONLN) \
