@@ -1383,6 +1383,10 @@ do
   fi
 done
 
+# This tends to run out of memory on 32-bit platforms
+# BUILDSTDERR: Error in re-setting breakpoint 1: virtual memory exhausted: can't allocate 4064 bytes. [...]
+# So let's limit this test to 64-bit platforms for now
+%ifarch %{x86_64} %{aarch64}
 # Make sure gdb can do a backtrace based on line numbers on libjvm.so
 # javaCalls.cpp:58 should map to:
 # http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ff3b27e6bcc2/src/share/vm/runtime/javaCalls.cpp#l58 
@@ -1401,6 +1405,7 @@ end
 run -version
 EOF
 grep 'JavaCallWrapper::JavaCallWrapper' gdb.out
+%endif
 
 # Check src.zip has all sources. See RHBZ#1130490
 jar -tf $JAVA_HOME/lib/src.zip | grep 'sun.misc.Unsafe'
