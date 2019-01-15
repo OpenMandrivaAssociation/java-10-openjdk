@@ -1258,6 +1258,9 @@ mkdir -p %{buildoutputdir -- $suffix}
 pushd %{buildoutputdir -- $suffix}
 
 if ! bash ../configure \
+%ifarch %{arm}
+    --with-toolchain-type=clang \
+%endif
 %ifnarch %{jit_arches}
     --with-jvm-variants=zero \
 %endif
