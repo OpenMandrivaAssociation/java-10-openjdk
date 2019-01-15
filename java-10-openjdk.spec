@@ -878,6 +878,8 @@ Patch4:    RHBZ-1249083-system-crypto-policy-PR3183.patch
 # System NSS via SunEC Provider
 Patch5:    RHBZ-1565658-system-nss-SunEC.patch
 
+Patch6:    openjdk-10-clang.patch
+
 #############################################
 #
 # OpenJDK specific patches
@@ -1151,6 +1153,10 @@ pushd %{top_level_dir_name}
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+
+%ifarch %{arm}
+%patch6 -p1
+%endif
 
 %patch101 -p1
 %patch102 -p1
