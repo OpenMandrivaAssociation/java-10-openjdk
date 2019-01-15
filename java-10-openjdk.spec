@@ -1228,7 +1228,7 @@ export CFLAGS="$CFLAGS -mieee"
 EXTRA_CFLAGS="%ourcppflags -std=gnu++98 -Wno-error -fno-delete-null-pointer-checks -fno-lifetime-dse"
 EXTRA_CPP_FLAGS="%ourcppflags -std=gnu++98 -fno-delete-null-pointer-checks -fno-lifetime-dse"
 
-%ifarch %{ix86} %{arm}
+%ifarch %{ix86}
 EXTRA_CFLAGS="$EXTRA_CFLAGS -mincoming-stack-boundary=2"
 EXTRA_CPP_FLAGS="$EXTRA_CPP_FLAGS -mincoming-stack-boundary=2"
 %endif
