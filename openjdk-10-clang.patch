@@ -6,7 +6,7 @@ diff -up openjdk/src/hotspot/cpu/arm/icache_arm.cpp.omv~ openjdk/src/hotspot/cpu
  
  static int icache_flush(address addr, int lines, int magic) {
 -  __builtin___clear_cache(addr, addr + (lines << ICache::log2_line_size));
-+  __builtin___clear_cache(static_cast<char*>(addr), addr + (lines << ICache::log2_line_size));
++  __builtin___clear_cache(reinterpret_cast<char*>(addr), reinterpret_cast<char*>(addr) + (lines << ICache::log2_line_size));
    return magic;
  }
  
@@ -34,3 +34,15 @@ diff -up openjdk/test/hotspot/gtest/utilities/test_align.cpp.omv~ openjdk/test/h
  
  template <typename T>
  static T max_alignment() {
+diff -up openjdk/src/hotspot/os/linux/os_linux.cpp.omv~ openjdk/src/hotspot/os/linux/os_linux.cpp
+--- openjdk/src/hotspot/os/linux/os_linux.cpp.omv~	2019-01-16 16:59:15.495014288 +0100
++++ openjdk/src/hotspot/os/linux/os_linux.cpp	2019-01-16 16:59:59.483628848 +0100
+@@ -2155,7 +2155,7 @@ void os::Linux::print_container_info(out
+     }
+ 
+     p = OSContainer::cpu_cpuset_memory_nodes();
+-    if (p < 0)
++    if (!p)
+       st->print("cpu_memory_nodes() failed\n");
+     else {
+       st->print("cpu_memory_nodes: %s\n", p);
