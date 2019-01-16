@@ -1,3 +1,15 @@
+diff -up openjdk/src/hotspot/cpu/arm/icache_arm.cpp.omv~ openjdk/src/hotspot/cpu/arm/icache_arm.cpp
+--- openjdk/src/hotspot/cpu/arm/icache_arm.cpp.omv~	2019-01-16 04:01:58.936793836 +0100
++++ openjdk/src/hotspot/cpu/arm/icache_arm.cpp	2019-01-16 04:02:20.081099815 +0100
+@@ -67,7 +67,7 @@ static int icache_flush(address addr, in
+ #else
+ 
+ static int icache_flush(address addr, int lines, int magic) {
+-  __builtin___clear_cache(addr, addr + (lines << ICache::log2_line_size));
++  __builtin___clear_cache(static_cast<char*>(addr), addr + (lines << ICache::log2_line_size));
+   return magic;
+ }
+ 
 diff -up openjdk/src/hotspot/share/code/compiledIC.cpp.omv~ openjdk/src/hotspot/share/code/compiledIC.cpp
 --- openjdk/src/hotspot/share/code/compiledIC.cpp.omv~	2019-01-15 20:45:43.990205590 +0100
 +++ openjdk/src/hotspot/share/code/compiledIC.cpp	2019-01-15 20:45:57.843364512 +0100
