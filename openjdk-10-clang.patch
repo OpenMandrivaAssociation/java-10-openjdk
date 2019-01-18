@@ -181,3 +181,29 @@ diff -up openjdk/src/hotspot/share/utilities/vmError.cpp.omv~ openjdk/src/hotspo
         case OOM_MALLOC_ERROR:
         case OOM_MMAP_ERROR:
           if (_size) {
+diff -up openjdk/src/hotspot/os_cpu/linux_arm/os_linux_arm.cpp.omv~ openjdk/src/hotspot/os_cpu/linux_arm/os_linux_arm.cpp
+--- openjdk/src/hotspot/os_cpu/linux_arm/os_linux_arm.cpp.omv~	2019-01-18 03:48:34.318704150 +0100
++++ openjdk/src/hotspot/os_cpu/linux_arm/os_linux_arm.cpp	2019-01-18 03:56:14.960801770 +0100
+@@ -510,8 +510,8 @@ void os::setup_fpu() {
+ #if !defined(__SOFTFP__) && defined(__VFP_FP__)
+   // Turn on IEEE-754 compliant VFP mode
+   __asm__ volatile (
+-    "mov %%r0, #0;"
+-    "fmxr fpscr, %%r0"
++    "mov r0, #0;"
++    "fmxr fpscr, r0"
+     : /* no output */ : /* no input */ : "r0"
+   );
+ #endif
+diff -up openjdk/src/hotspot/os_cpu/linux_arm/orderAccess_linux_arm.inline.hpp.omv~ openjdk/src/hotspot/os_cpu/linux_arm/orderAccess_linux_arm.inline.hpp
+--- openjdk/src/hotspot/os_cpu/linux_arm/orderAccess_linux_arm.inline.hpp.omv~	2019-01-18 03:57:46.981176985 +0100
++++ openjdk/src/hotspot/os_cpu/linux_arm/orderAccess_linux_arm.inline.hpp	2019-01-18 04:05:13.735748748 +0100
+@@ -60,7 +60,7 @@ inline static void dmb_sy() {
+    if (!os::is_MP()) {
+      return;
+    }
+-#ifdef AARCH64
++#if defined(AARCH64) || defined(__ARM_ARCH_7__) || defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7S__) || defined(__ARM_ARCH_8__) || defined(__ARM_ARCH_8A__)
+    __asm__ __volatile__ ("dmb sy" : : : "memory");
+ #else
+    if (VM_Version::arm_arch() >= 7) {
