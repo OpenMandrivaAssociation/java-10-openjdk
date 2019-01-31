@@ -1154,9 +1154,10 @@ pushd %{top_level_dir_name}
 %patch4 -p1
 %patch5 -p1
 
-%ifarch %{arm}
-%patch6 -p1
-%endif
+#ifarch %{arm}
+# NOT YET: while it fixes clang, it breaks gcc
+#patch6 -p1
+#endif
 
 %patch101 -p1
 %patch102 -p1
@@ -1268,9 +1269,6 @@ mkdir -p %{buildoutputdir -- $suffix}
 pushd %{buildoutputdir -- $suffix}
 
 if ! bash ../configure \
-%ifarch %{arm}
-    --with-toolchain-type=clang \
-%endif
 %ifnarch %{jit_arches}
     --with-jvm-variants=zero \
 %endif
