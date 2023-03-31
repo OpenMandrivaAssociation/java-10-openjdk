@@ -825,7 +825,7 @@ Provides: java-%{javaver}-%{origin}-src%{?1} = %{EVRD}
 
 Name:    java-%{majorver}-%{origin}
 Version: %{newjavaver}.%{buildver}
-Release: 1
+Release: 2
 Summary: %{origin_nice} Runtime Environment %{majorver}
 Group:   Development/Languages
 
